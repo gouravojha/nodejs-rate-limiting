@@ -29,19 +29,9 @@ Essentially, a rate-limited application will say, "Hey, slow down," to unique us
 ----
 #### Rate limiting using IP Address (npm package - express-rate-limit)
 ![alt text](https://raw.githubusercontent.com/gouravojha/nodejs-rate-limiting/master/public/Screenshot%202023-02-01%20at%206.29.39%20PM.png)
-// IP based rate limiter for API
 
-const rateLimit = require('express-rate-limit');
+![alt text](https://raw.githubusercontent.com/gouravojha/nodejs-rate-limiting/master/public/limiter.png)
 
-limiter = rateLimit({
-	windowMs: 10 * 1000, // 10 sec
-	max: 5, // Limit each IP to 5 create account requests per `window` (here, per 10 sec)
-	message: 'Too many requests. Try after sometime',
-	standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
-	legacyHeaders: false, // Disable the `X-RateLimit-*` headers
-})
-module.exports = {limiter}
-----
 
 #### Rate limiting using API KEY and Redis 
 ![alt text](https://raw.githubusercontent.com/gouravojha/nodejs-rate-limiting/master/public/Screenshot%202023-02-01%20at%206.29.54%20PM.png)

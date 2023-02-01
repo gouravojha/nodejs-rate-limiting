@@ -26,3 +26,31 @@ Essentially, a rate-limited application will say, "Hey, slow down," to unique us
 	"message": "Your API Key is X4S5XGN-X3Y4VF1-J6QYZJE-B739DWM valid for 10 days",
 	"usage": "Use the above API key in headers of every request. Ex => X-API_KEY : API_KEY"
 }
+----
+#### Rate limiting using IP Address (npm package - express-rate-limit)
+![alt text](https://raw.githubusercontent.com/gouravojha/nodejs-rate-limiting/master/public/Screenshot%202023-02-01%20at%206.29.39%20PM.png)
+// IP based rate limiter for API
+
+const rateLimit = require('express-rate-limit');
+
+limiter = rateLimit({
+	windowMs: 10 * 1000, // 10 sec
+	max: 5, // Limit each IP to 5 create account requests per `window` (here, per 10 sec)
+	message: 'Too many requests. Try after sometime',
+	standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
+	legacyHeaders: false, // Disable the `X-RateLimit-*` headers
+})
+
+module.exports = {
+	limiter
+}
+----
+
+#### Rate limiting using API KEY and Redis 
+![alt text](https://raw.githubusercontent.com/gouravojha/nodejs-rate-limiting/master/public/Screenshot%202023-02-01%20at%206.29.54%20PM.png)
+
+- **Initial Limit of every API_KEY is set to default of 10**
+![alt text](https://raw.githubusercontent.com/gouravojha/nodejs-rate-limiting/master/public/Screenshot%202023-02-01%20at%206.29.08%20PM.png)
+
+- **Once the Limit is exhausted the data in Redis is set to 0**
+![alt text](https://raw.githubusercontent.com/gouravojha/nodejs-rate-limiting/master/public/Screenshot%202023-02-01%20at%206.30.21%20PM.png)
